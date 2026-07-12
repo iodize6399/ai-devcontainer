@@ -1,0 +1,22 @@
+{
+  "name": "Default Linux Universal",
+
+  "image": "mcr.microsoft.com/devcontainers/universal:6-linux",
+  
+// This directory is bind-mounted from the host so that auth and configuration are preserved across container rebuilds.
+  "initializeCommand": "mkdir -p \"$HOME/.codex\"",
+
+  "features": {
+    "ghcr.io/sliekens/devcontainer-features/codex:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  }
+}
