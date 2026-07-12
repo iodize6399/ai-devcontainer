@@ -1,14 +1,29 @@
 {
-  "name": "Default Linux Universal",
+  "name": "AI Coding Agents",
 
   "image": "mcr.microsoft.com/devcontainers/universal:6-linux",
-  
-// This directory is bind-mounted from the host so that auth and configuration are preserved across container rebuilds.
-  "initializeCommand": "mkdir -p \"$HOME/.codex\"",
+
+  // These directories are bind-mounted from the host so that agent state survives container rebuilds.
+  "initializeCommand": "mkdir -p \"$HOME/.codex\" \"$HOME/.local/share/opencode\" \"$HOME/.config/opencode\" \"$HOME/.omp\"",
 
   "features": {
-    "ghcr.io/sliekens/devcontainer-features/codex:1": {}
+    "ghcr.io/sliekens/devcontainer-features/codex:1": {},
+    "ghcr.io/sliekens/devcontainer-features/opencode:1": {},
+    "ghcr.io/iyaki/devcontainer-features/oh-my-pi:1": {}
   },
+
+  "mounts": [
+    {
+      "type": "bind",
+      "source": "${localEnv:HOME}/.omp/",
+      "target": "/var/lib/omp"
+    }
+  ],
+
+  "onCreateCommand": [
+    "bash",
+    ".devcontainer/setup-oh-my-pi-state.sh"
+  ],
 
   "customizations": {
     "vscode": {

@@ -1,8 +1,26 @@
-# Codex Dev Container
+# AI Coding Agents Dev Container
 
-A simple GitHub template for using Codex in a dev container.
+A simple GitHub template for using Codex and Oh My Pi in a dev container.
 
-## Update Codex
+After building the container, run either agent from the terminal:
+
+```sh
+codex
+omp
+```
+
+## Persistent configuration
+
+Authentication, configuration, and session data survive container rebuilds:
+
+| Agent | Host directory | Container directory |
+| --- | --- | --- |
+| Codex | `~/.codex` | `~/.codex` |
+| Oh My Pi | `~/.omp` | `~/.omp` |
+
+The host directories are created before the container starts and bind-mounted into the container. Oh My Pi's mounted state is linked to the container user's home when the container is first created.
+
+## Update the agents
 
 ```sh
 npx --yes @devcontainers/cli upgrade --workspace-folder .
@@ -16,4 +34,4 @@ Rebuild the container after updating.
 2. Put this `.devcontainer/devcontainer.json` in each repository.
 3. Open the repository with VS Code.
 4. Select `Dev Containers: Reopen in Container.`
-5. Run `codex` from the container terminal.
+5. Run `codex` or `omp` from the container terminal.
