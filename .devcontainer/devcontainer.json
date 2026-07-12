@@ -8,8 +8,11 @@
 
   "features": {
     "ghcr.io/sliekens/devcontainer-features/codex:1": {},
-    "ghcr.io/sliekens/devcontainer-features/opencode:1": {},
-    "ghcr.io/iyaki/devcontainer-features/oh-my-pi:1": {}
+    "ghcr.io/sliekens/devcontainer-features/opencode:1": {}
+  },
+
+  "containerEnv": {
+    "OMP_VERSION": "latest"
   },
 
   "mounts": [
@@ -22,7 +25,8 @@
 
   "onCreateCommand": [
     "bash",
-    ".devcontainer/setup-oh-my-pi-state.sh"
+    "-lc",
+    "sudo bash .devcontainer/install-omp.sh && bash .devcontainer/setup-oh-my-pi-state.sh"
   ],
 
   "customizations": {

@@ -16,11 +16,11 @@ Authentication, configuration, and session data survive container rebuilds:
 
 | Agent | Host directory | Container directory |
 | --- | --- | --- |
-| Codex | `~/.codex` | `~/.codex` |
-| opencode | `~/.local/share/opencode` and `~/.config/opencode` | `~/.local/share/opencode` and `~/.config/opencode` |
+| Codex | `~/.codex` | `/var/lib/codex` (linked from `~/.codex`) |
+| opencode | `~/.local/share/opencode` and `~/.config/opencode` | `/var/lib/opencode` and `/var/lib/opencode-config` (linked from `~/.local/share/opencode` and `~/.config/opencode`) |
 | Oh My Pi | `~/.omp` | `/var/lib/omp` (linked from `~/.omp`) |
 
-The host directories are created before the container starts and bind-mounted into the container. Oh My Pi's mounted state is linked to the container user's home when the container is first created.
+The host directories are created before the container starts and bind-mounted to a neutral path under `/var/lib/`. Each tool's dot-directory in the container user's home is then symlinked to its `/var/lib/<name>` counterpart so the tool finds its state where it expects. The same pattern is used for all three agents; for Codex and opencode the bind mount and symlink are owned by their respective sliekens devcontainer features, while for Oh My Pi they are owned by this repo (`devcontainer.json` and `.devcontainer/setup-oh-my-pi-state.sh`).
 
 ## Update the agents
 
@@ -29,6 +29,10 @@ npx --yes @devcontainers/cli upgrade --workspace-folder .
 ```
 
 Rebuild the container after updating.
+
+### Pinning Oh My Pi
+
+Oh My Pi is installed from upstream `can1357/oh-my-pi` GitHub releases by `.devcontainer/install-omp.sh` during container creation. Pin a version by setting `OMP_VERSION` in `.devcontainer/devcontainer.json` (`containerEnv`), e.g. `"OMP_VERSION": "16.4.6"` or `"OMP_VERSION": "v16.4.6"`. The default is `latest`.
 
 # Using in WSL
 
