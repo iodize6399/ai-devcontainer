@@ -8,26 +8,9 @@
 
   "features": {
     "ghcr.io/sliekens/devcontainer-features/codex:1": {},
-    "ghcr.io/sliekens/devcontainer-features/opencode:1": {}
+    "ghcr.io/sliekens/devcontainer-features/opencode:1": {},
+    "ghcr.io/sliekens/devcontainer-features/omp:1": {}
   },
-
-  "containerEnv": {
-    "OMP_VERSION": "latest"
-  },
-
-  "mounts": [
-    {
-      "type": "bind",
-      "source": "${localEnv:HOME}/.omp/",
-      "target": "/var/lib/omp"
-    }
-  ],
-
-  "onCreateCommand": [
-    "bash",
-    "-lc",
-    "sudo bash .devcontainer/install-omp.sh && bash .devcontainer/setup-oh-my-pi-state.sh"
-  ],
 
   "customizations": {
     "vscode": {
