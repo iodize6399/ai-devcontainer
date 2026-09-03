@@ -1,6 +1,6 @@
 # AI Coding Agents Dev Container
 
-A simple GitHub template for using Codex, opencode, and Oh My Pi in a dev container.
+Codex, opencode, and Oh My Pi in a dev container.
 
 After building the container, run any agent from the terminal:
 
